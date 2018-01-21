@@ -5,31 +5,38 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Roy', age: 28 },
-      { name: 'Karolina', age: 30 },
-      { name: 'Testname', age: 33 }
+      { id: 'ewre2', name: 'Roy', age: 28 },
+      { id: 'frer2', name: 'Karolina', age: 30 },
+      { id: 'fdfd4', name: 'Testname', age: 33 }
     ],
     otherState: 'some other value',
     showsPersons: false
   }
 
-  switchNameHandler = (newName) => {
-    // DON'T DO THIS: this.state.persons[0].name = 'Roy José';
-    this.setState({ persons: [
-        { name: newName, age: 28 },
-        { name: 'Karolina', age: 30 },
-        { name: 'Testname', age: 69 }
-      ]
-    })
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons });
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({ persons: [
-      { name: 'Roy', age: 28 },
-      { name: 'Karolina', age: 30 },
-      { name: event.target.value, age: 69 }
-    ]
-  })
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons; Not a solution, this updates the original state by reference
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
   }
 
   togglePersonsHandler = () => {
@@ -52,22 +59,14 @@ class App extends Component {
     if(this.state.showsPersons) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            click={this.switchNameHandler}>
-          </Person>
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, 'Other other name')}>
-          </Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-            click={this.switchNameHandler}
-            changed={this.nameChangedHandler}>
-          </Person>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              key={person.id}
+              click={() => {this.deletePersonHandler(index)}}
+              name={person.name}
+              age={person.age}
+              changed={(event) => {this.nameChangedHandler(event, person.id)}} />
+          })}
         </div>
       );
     }
