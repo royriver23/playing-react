@@ -8,3 +8,15 @@ onClick={this.switchNameHandler.bind(this, 'Other other name')}
 ```javascript
 onClick={() => this.switchNameHandler('Roy José!')}
 ```
+
+#### Enabling CSS Module
+
+webpack.config.dev.js and webpack.config.production.js
+```
+loader: require.resolve('css-loader'),
+  options: {
+    importLoaders: 1,
+    modules: true,
+    localIdentName: '[name]__[local]__[hash:base64:5]'
+  },
+```
