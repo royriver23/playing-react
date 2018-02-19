@@ -20,3 +20,9 @@ loader: require.resolve('css-loader'),
     localIdentName: '[name]__[local]__[hash:base64:5]'
   },
 ```
+
+### Pure Components
+They automatically perform deep checks on componentShouldUpdate to avoid rework.
+You use if you know that updates may not be required. On the other hand, you have components which might only depend on one or two props and you know whenever updates are triggered for this component I want to update it because maybe I've got a couple of pure components at top positions in this component tree which prevent the updating of any child component anyways.
+You can get performance hit due to constant state/props comparisons.
+Having some containers with PureComponents may be a good idea.
