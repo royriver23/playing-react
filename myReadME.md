@@ -21,11 +21,39 @@ loader: require.resolve('css-loader'),
   },
 ```
 
+---
+
 ### Pure Components
 They automatically perform deep checks on componentShouldUpdate to avoid rework.
 You use if you know that updates may not be required. On the other hand, you have components which might only depend on one or two props and you know whenever updates are triggered for this component I want to update it because maybe I've got a couple of pure components at top positions in this component tree which prevent the updating of any child component anyways.
 You can get performance hit due to constant state/props comparisons.
 Having some containers with PureComponents may be a good idea.
 
+---
+
 ### High order components
 They are not representational, but they wrap other components to add a certain functionality.
+If your project uses React 16.2, you can now use a built-in "Aux" component - a so called fragment.
+
+It's actually not called Aux  but you simply use <>  - an empty JSX tag.
+
+So the following code
+
+```javascript
+<Aux>
+    <h1>First Element</h1>
+    <h1>Second Element</h1>
+</Aux>
+```
+
+becomes
+```javascript
+<>
+    <h1>First Element</h1>
+    <h1>Second Element</h1>
+</>
+```javascript
+
+Behind the scenes, it does the same our Aux  component did.
+
+---
