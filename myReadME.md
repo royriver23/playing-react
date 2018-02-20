@@ -68,3 +68,19 @@ this.setState((prevState, props) => {
     }
   });
 ```
+
+---
+PropTypes: [Source](https://reactjs.org/docs/typechecking-with-proptypes.html)
+
+`yarn add prop-types`
+
+---
+
+**ref:** can only be used in stateful components. They can be used after render (componentDidMount or componentDidUpdate)
+
+---
+
+State & Lifecycle: https://reactjs.org/docs/state-and-lifecycle.html
+PropTypes: https://reactjs.org/docs/typechecking-with-proptypes.html
+Higher Order Components: https://reactjs.org/docs/higher-order-components.html
+Refs: https://reactjs.org/docs/refs-and-the-dom.html
