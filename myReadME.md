@@ -57,3 +57,14 @@ becomes
 Behind the scenes, it does the same our Aux  component did.
 
 ---
+
+### Using setState if you rely on previous State.
+
+```javascript
+this.setState((prevState, props) => {
+    return {
+      showPersons: !doesShow,
+      toggleClicked: prevState.toggleClicked + 1
+    }
+  });
+```
